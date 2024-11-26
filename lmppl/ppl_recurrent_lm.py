@@ -126,14 +126,14 @@ class LM:
                 if 'token_type_ids' in model_inputs:
                     model_inputs.pop('token_type_ids')
 		
-		model_inputs = {k: v.to(self.device) for k, v in model_inputs.items()}
+                model_inputs = {k: v.to(self.device) for k, v in model_inputs.items()}
                 output = self.model(**{k: v.to(self.device) for k, v in model_inputs.items()})
                 logit = output['logits']
                 if self.pad_token_initialized:
                     logit = logit[:, :, :-1]
 
                 # shift the label sequence for causal inference
-                label = model_inputs['input_ids']
+                label = model_inputs['input_ids'].to(self.device)
                 label[label == self.tokenizer.pad_token_id] = PAD_TOKEN_LABEL_ID
 
                 # Shift so that tokens < n predict n
