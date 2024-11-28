@@ -36,7 +36,7 @@ setup(
         "sentencepiece",
         "accelerate",
         "openai",
-        "protobuf<3.20"  # required by DeBERTa models
+        "protobuf"#<3.20"  # required by DeBERTa models
     ],
     python_requires='>=3.6',
     # entry_points={
